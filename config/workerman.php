@@ -2,8 +2,6 @@
 
 return [
 
-    'debug'    => true,
-
     // https://www.workerman.net/doc/gateway-worker/register.html
     'register' => [
 
@@ -18,10 +16,9 @@ return [
 
         'registerAddress' => '127.0.0.1:1236',
 
-        'name'  => 'BusinessWorker',
+        'name' => 'BusinessWorker',
 
-        // 一般为CPU的核数的2-3倍
-        'count' => 2,
+        'count' => 2,     // 一般为CPU的核数的2-3倍
 
         'ip' => ''
     ],
@@ -33,10 +30,9 @@ return [
 
         'protocol' => 'websocket',
 
-        'name'  => 'Gateway',
+        'name' => 'Gateway',
 
-        // 一般为CPU的核数
-        'count' => 1,
+        'count' => 1,    // 一般为CPU的核数
 
         'lanIp' => '127.0.0.1',
 
@@ -45,6 +41,15 @@ return [
         'ip' => '0.0.0.0',
 
         'port' => 60001,
-    ],
 
+        'ssl' => false, //开启 wss 协议
+
+        'content' => [
+            'ssl' => [
+                'local_cert'  => env('WORKERMAN_SSL_CERT', ''), // .pem or .crt
+                'local_pk'    => env('WORKERMAN_SSL_KEY', ''), // .key
+                'verify_peer' => false,
+            ]
+        ],
+    ],
 ];

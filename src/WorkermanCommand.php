@@ -61,7 +61,7 @@ class WorkermanCommand extends Command
 
     private function startGateWay()
     {
-        $gateway = new Gateway(config('workerman.gateway.protocol') . '://' . config('workerman.gateway.ip') . ':' . config('workerman.gateway.port'));
+        $gateway = new Gateway(config('workerman.gateway.protocol') . '://' . config('workerman.gateway.ip') . ':' . config('workerman.gateway.port'), config('workerman.gateway.content'));
         $gateway->name = config('workerman.gateway.name');
         $gateway->count = config('workerman.gateway.count');
         $gateway->lanIp = config('workerman.gateway.lanIp');
@@ -70,6 +70,8 @@ class WorkermanCommand extends Command
         $gateway->pingNotResponseLimit = 1;
         $gateway->pingData = '';
         $gateway->registerAddress = config('workerman.gateway.registerAddress');
+
+        config('workerman.gateway.ssl', false) && $gateway->transport = 'ssl';
     }
 
     private function startBusinessWorker()
